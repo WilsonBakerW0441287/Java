@@ -1,0 +1,109 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+
+        //add methods to access the tools
+        //inspect? - report from tools
+        //add
+        //remove
+        //update
+        int goals;
+        int assists;
+        String input;
+        String pname;
+        String curritem;
+        //decalre vairables
+
+        //inputs
+        Scanner sc = new Scanner(System.in);
+
+        //array/ objects
+        ArrayList<Tools> allTools = new ArrayList<>();
+        Tools powertool1 = new powerTools();
+        Tools handtool1 = new handTools();
+        Tools limitedusetool1 = new limitedTimeUse();
+        allTools.add(powertool1);
+        allTools.add(handtool1);
+        allTools.add(limitedusetool1);
+
+        System.out.println("WILSON WORKBENCH\nCOME ON IN");
+        //title
+        for (int i = 0; i < 2; i++) { // how many items do we want
+            if (i == 0) {
+                System.out.println("Power Tool\n");
+            } else if (i == 1) {
+                System.out.println("Hand Tool\n");
+            } else if (i == 2) {
+                System.out.println("Limited Use Item\n");
+            }
+            do {
+                System.out.printf("Enter item Name #%d: \n", (i + 1));
+                while (!sc.hasNextLine()) { //While the scanner has no next line
+                    System.out.println("Please enter a valid word!");
+                    sc.next();
+                }
+                input = sc.nextLine();
+            } while (input == null || input.equals(""));
+            allTools.get(i).setName(input);//sets name for team object of (i) #
+        }
+
+        System.out.println("INFO ENTRY\n" + ("=".repeat(30)));
+
+        for (int i = 0; i < 2; i++) { // This is for how many items
+            curritem = allTools.get(i).getName();
+            System.out.println("\nEnter info for " + curritem + ": ");
+            // this is for each item specific info
+                System.out.printf("Enter Brand name for item #%d: \n", (j + 1));
+                brandName = sc.nextLine(); // we need to access the name
+                //add to players list
+            do {
+                System.out.printf("Enter price for %s: \n", brandName);
+                while (!sc.hasNextInt()) { //Check that the value is an integer
+                    System.out.println("Enter a positive integer number.");
+                    sc.nextLine();
+                }
+                goals = sc.nextInt();
+            } while (goals < 0);
+            //add to players goals
+            do {
+                System.out.printf("Enter number of assists for %s: \n", brandName);
+                while (!sc.hasNextInt()) { //Check that the value is an integer
+                    System.out.println("Enter a positive integer number.");
+                    sc.nextLine();
+                }
+                assists = sc.nextInt();
+            } while (assists < 0);
+            sc.nextLine();
+            //add player assists
+            //add all to player list
+            // add the list to the teams player list
+            allPlayers.add(new Players(brandName, goals, assists));
+            allTeams.get(i).setPlayerList(allPlayers);
+
+
+        }
+        System.out.println("REPORT STATS PER TEAM\n" + ("=".repeat(30)));
+
+        for (Team currentTeam : allTeams) {
+            System.out.println(currentTeam.teamReport());
+        }// access the methods of the object team to print report
+        //for each loops are insane
+
+        System.out.println("REPORT STATS PER Player");
+        System.out.println("=".repeat(30));
+        //
+        for (Team temp : allTeams) {
+            for (Players temp2 : temp.getPlayerList()) {
+                //using the currentTeam/playerlist variable name we access the position for what we are looking for
+                System.out.println(temp2.Playersinfo());
+
+            }
+        }
+    }
+}
